@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsTaskSchedule</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>YourApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   </head>
-
-  <body>
+    <div class="py-2" style="background: linear-gradient(90deg, #4e73df, #36b9cc);">
+      <h2 class="text-center text-white fs-4 fw-bold py-2 m-0">
+        スケジュール管理
+      </h2>
+    </div>
     <%= yield %>
   </body>
 </html>

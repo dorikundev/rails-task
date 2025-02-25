@@ -1,0 +1,38 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <!-- タイトル -->
+    <div class="d-flex align-items-center mb-4">
+      <h2 class="fs-4 fw-bold mb-0">
+      <td><%= @post.title %></td>
+      </h2>
+    </div>
+
+    <table class = "table">
+      <tr>
+        <th>開始日</th>
+        <td><%= @post.start_date.strftime("%Y/%m/%d") %></td>
+      </tr>
+      <tr>
+        <th>終了日</th>
+        <td><%= @post.end_date.strftime("%Y/%m/%d") %></td>
+      </tr>
+      <tr>
+        <th>終日</th>
+        <td><%= "○" if @post.all_day %></td>
+      </tr>
+      <tr>
+        <th class="w-25">スケジュールメモ</th>
+        <td><%= @post.memo %></td>
+      </tr>
+    </table>
+
+    <div class="d-flex gap-2 justify-content-center mt-4">
+      <%= link_to posts_path, class: "btn btn-secondary" do %>
+        一覧に戻る
+      <% end %>
+      <%= link_to [:edit, @post], class: "btn btn-primary" do %>
+        編集する
+      <% end %>
+    </div>
+  </div>
+</div>

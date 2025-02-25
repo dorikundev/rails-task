@@ -1,0 +1,78 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-between ">
+    <h2 class="fs-4 fw-bold">
+      <i class="bi bi-calendar"></i>
+      予定一覧
+    </h2>
+    <%= link_to new_post_path, class: "btn btn-primary px-4 py-2" do %>
+      <i class="bi bi-plus-circle me-2"></i>新規作成
+    <% end %>
+  </div>
+
+  <!-- スケジュール合計を表示 -->
+  <div class="d-flex justify-content-between mt-3">
+    <%= Date.today.strftime('%Y/%m/%d') %>
+    <p>予定合計: <%=  @total_schedules %>件</p>
+  </div>
+
+  <!-- スケジュール登録後に表示 -->
+  <% if flash[:notice] %>
+    <div class="alert alert-success alert-dismissible fade show mb-4 mt-4" role="alert">
+      <%= flash[:notice] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <!-- スケジュール一覧 -->
+  <table class="table align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>タイトル</th>
+        <th class="text-center">開始日</th>
+        <th class="text-center">終了日</th>
+        <th class="text-center">終日</th>
+        <th class="text-center">更新日時</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td class="py-4"><%= post.title %></td>
+          <td class="text-center py-4"><%= post.start_date.strftime("%Y/%m/%d") %></td>
+          <td class="text-center py-4"><%= post.end_date.strftime("%Y/%m/%d")%></td>
+          <td class="text-center py-4"><%= "○" if post.all_day %></td>
+          <td class="text-center py-4"><%= post.updated_at.to_s(:datetime_jp) %></td>
+          <td class="text-center py-4"><%= link_to "詳細", post ,class: "text-decoration-none"%></td>
+          <td class="text-center py-4"><%= link_to "編集", [:edit , post],class: "text-decoration-none" %></td>
+          
+          <td class="text-center py-4">
+            <%= link_to "#", 
+                class: "text-decoration-none",
+                data: { bs_toggle: "modal", bs_target: "#deleteModal#{post.id}" } do %>
+              削除
+            <% end %>
+          
+            <!-- 削除モーダル -->
+            <div class="modal" id="deleteModal<%= post.id %>" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                  <div class="modal-body text-center py-4">
+                    <%= post.title %>を削除しますか？
+                  </div>
+                  <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">キャンセル</button>
+                    <%= link_to "削除", post, method: :delete, class: "btn btn-danger" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
